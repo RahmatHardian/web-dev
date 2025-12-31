@@ -16,7 +16,7 @@ export const HowItWorks = () => {
         <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-primary-200 hidden lg:block transform -translate-y-1/2" />
 
         <div className="grid gap-8 md:grid-cols-3 relative">
-          {howItWorksContent.steps.map((step, index) => (
+          {howItWorksContent.steps.map((step) => (
             <div key={step.number} className="relative text-center">
               {/* Step number circle */}
               <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary-500 text-3xl font-bold text-white shadow-lg relative z-10">
