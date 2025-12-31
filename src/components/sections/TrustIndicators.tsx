@@ -1,5 +1,5 @@
-import { Section, Icon } from '@components/common'
-import { trustIndicators } from '@data'
+import { Section, Icon } from '../common'
+import { trustIndicators } from '../../data'
 
 export const TrustIndicators = () => {
   return (

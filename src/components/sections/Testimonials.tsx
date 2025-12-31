@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
-import { Section, LazyImage } from '@components/common'
-import { Card } from '@components/ui'
-import { testimonials, testimonialsContent } from '@data'
+import { Section, LazyImage } from '../common'
+import { Card } from '../ui'
+import { testimonials, testimonialsContent } from '../../data'
 
 export const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0)

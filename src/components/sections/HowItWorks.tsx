@@ -1,5 +1,5 @@
-import { Section, Icon } from '@components/common'
-import { howItWorksContent } from '@data'
+import { Section, Icon } from '../common'
+import { howItWorksContent } from '../../data'
 
 export const HowItWorks = () => {
   return (

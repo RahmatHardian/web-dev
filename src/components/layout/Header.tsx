@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
-import { Button } from '@components/ui'
-import { useScrollToSection } from '@hooks'
-import { NAV_LINKS } from '@utils/constants'
-import { WHATSAPP_MESSAGES } from '@utils/whatsapp'
-import { WhatsAppLink } from '@components/features/WhatsAppLink'
+import { Button } from '../ui'
+import { useScrollToSection } from '../../hooks'
+import { NAV_LINKS } from '../../utils/constants'
+import { WHATSAPP_MESSAGES } from '../../utils/whatsapp'
+import { WhatsAppLink } from '../features/WhatsAppLink'
 import { clsx } from 'clsx'
 
 export const Header = () => {

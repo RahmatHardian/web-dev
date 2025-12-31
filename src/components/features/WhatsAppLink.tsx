@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { MessageCircle } from 'lucide-react'
-import { Button } from '@components/ui'
-import { generateWhatsAppLink, getWhatsAppPhone } from '@utils/whatsapp'
+import { Button } from '../ui'
+import { generateWhatsAppLink, getWhatsAppPhone } from '../../utils/whatsapp'
 
 interface WhatsAppLinkProps {
   message: string

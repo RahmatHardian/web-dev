@@ -1,6 +1,6 @@
-import { Section, Icon } from '@components/common'
-import { Card } from '@components/ui'
-import { features, featuresContent } from '@data'
+import { Section, Icon } from '../common'
+import { Card } from '../ui'
+import { features, featuresContent } from '../../data'
 
 export const FeaturesSection = () => {
   return (

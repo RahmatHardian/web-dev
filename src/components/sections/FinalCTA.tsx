@@ -1,9 +1,9 @@
-import { Section } from '@components/common'
-import { Button } from '@components/ui'
-import { WhatsAppLink } from '@components/features/WhatsAppLink'
-import { finalCTAContent } from '@data'
-import { WHATSAPP_MESSAGES } from '@utils/whatsapp'
-import { useScrollToSection } from '@hooks'
+import { Section } from '../common'
+import { Button } from '../ui'
+import { WhatsAppLink } from '../features/WhatsAppLink'
+import { finalCTAContent } from '../../data'
+import { WHATSAPP_MESSAGES } from '../../utils/whatsapp'
+import { useScrollToSection } from '../../hooks'
 
 export const FinalCTA = () => {
   const { scrollToSection } = useScrollToSection()

@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { openWhatsApp, WHATSAPP_MESSAGES } from '@utils/whatsapp'
+import { openWhatsApp, WHATSAPP_MESSAGES } from '../utils/whatsapp'
 
 /**
  * Hook for WhatsApp integration

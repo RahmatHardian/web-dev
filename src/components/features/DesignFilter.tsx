@@ -1,5 +1,5 @@
-import { DesignCategory } from '@types/design'
-import { designCategories } from '@data'
+import type { DesignCategory } from '../../types/design'
+import { designCategories } from '../../data'
 import { clsx } from 'clsx'
 
 interface DesignFilterProps {

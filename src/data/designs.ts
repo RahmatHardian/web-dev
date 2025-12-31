@@ -1,4 +1,4 @@
-import { Design } from '@types/design'
+import type { Design } from '../types/design'
 
 export const designs: Design[] = [
   // Elegant Designs

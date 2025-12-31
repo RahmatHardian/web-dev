@@ -1,6 +1,6 @@
-import { Section } from '@components/common'
-import { designPreviewContent } from '@data'
-import { DesignGallery } from '@components/features/DesignGallery'
+import { Section } from '../common'
+import { designPreviewContent } from '../../data'
+import { DesignGallery } from '../features/DesignGallery'
 
 export const DesignPreview = () => {
   return (

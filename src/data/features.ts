@@ -1,4 +1,4 @@
-import { Feature, TrustIndicator } from '@types/feature'
+import type { Feature, TrustIndicator } from '../types/feature'
 
 export const features: Feature[] = [
   {

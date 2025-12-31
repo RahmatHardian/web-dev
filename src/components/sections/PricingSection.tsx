@@ -1,6 +1,6 @@
-import { Section } from '@components/common'
-import { pricingPackages, pricingContent } from '@data'
-import { PricingCard } from '@components/features/PricingCard'
+import { Section } from '../common'
+import { pricingPackages, pricingContent } from '../../data'
+import { PricingCard } from '../features/PricingCard'
 
 export const PricingSection = () => {
   return (

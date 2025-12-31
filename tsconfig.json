@@ -25,9 +25,14 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
+      "@components/common": ["./src/components/common/index.ts"],
+      "@utils": ["./src/utils/index.ts"],
       "@utils/*": ["./src/utils/*"],
+      "@types": ["./src/types/index.ts"],
       "@types/*": ["./src/types/*"],
+      "@data": ["./src/data/index.ts"],
       "@data/*": ["./src/data/*"],
+      "@hooks": ["./src/hooks/index.ts"],
       "@hooks/*": ["./src/hooks/*"],
       "@styles/*": ["./src/styles/*"]
     }

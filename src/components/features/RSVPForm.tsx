@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input, Textarea, Button } from '@components/ui'
-import { RSVPFormData } from '@types/form'
-import { rsvpSchema, SUCCESS_MESSAGES, ERROR_MESSAGES } from '@utils'
+import { Input, Textarea, Button } from '../ui'
+import type { RSVPFormData } from '../../types/form'
+import { rsvpSchema, SUCCESS_MESSAGES, ERROR_MESSAGES } from '../../utils'
 
 interface RSVPFormProps {
   onSuccess?: () => void

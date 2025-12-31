@@ -1,4 +1,4 @@
-import { PricingPackage } from '@types/pricing'
+import type { PricingPackage } from '../types/pricing'
 
 export const pricingPackages: PricingPackage[] = [
   {

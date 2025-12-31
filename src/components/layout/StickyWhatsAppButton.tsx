@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react'
-import { WHATSAPP_MESSAGES } from '@utils/whatsapp'
-import { WhatsAppLink } from '@components/features/WhatsAppLink'
-import { useWindowSize } from '@hooks'
+import { WHATSAPP_MESSAGES } from '../../utils/whatsapp'
+import { WhatsAppLink } from '../features/WhatsAppLink'
+import { useWindowSize } from '../../hooks'
 
 export const StickyWhatsAppButton = () => {
   const { isMobile } = useWindowSize()

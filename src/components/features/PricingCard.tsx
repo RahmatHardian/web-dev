@@ -1,8 +1,8 @@
 import { Check, Star } from 'lucide-react'
-import { Card, Badge } from '@components/ui'
+import { Card, Badge } from '../ui'
 import { WhatsAppLink } from './WhatsAppLink'
-import { PricingPackage } from '@types/pricing'
-import { formatCurrency, calculateDiscount, WHATSAPP_MESSAGES } from '@utils'
+import type { PricingPackage } from '../../types/pricing'
+import { formatCurrency, calculateDiscount, WHATSAPP_MESSAGES } from '../../utils'
 
 interface PricingCardProps {
   package: PricingPackage

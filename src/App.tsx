@@ -1,5 +1,5 @@
 import { HelmetProvider, Helmet } from 'react-helmet-async'
-import { Header, Footer, StickyWhatsAppButton } from '@components/layout'
+import { Header, Footer, StickyWhatsAppButton } from './components/layout'
 import {
   HeroSection,
   TrustIndicators,
@@ -9,8 +9,8 @@ import {
   PricingSection,
   Testimonials,
   FinalCTA,
-} from '@components/sections'
-import { SEO_CONFIG } from '@utils/constants'
+} from './components/sections'
+import { SEO_CONFIG } from './utils/constants'
 
 function App() {
   return (

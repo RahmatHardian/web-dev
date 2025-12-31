@@ -1,6 +1,6 @@
-import { Card, LazyImage } from '@components/common'
-import { Badge } from '@components/ui'
-import { Design } from '@types/design'
+import { LazyImage } from '../common'
+import { Badge, Card } from '../ui'
+import type { Design } from '../../types/design'
 
 interface DesignCardProps {
   design: Design

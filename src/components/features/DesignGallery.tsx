@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { designs } from '@data'
-import { DesignCategory } from '@types/design'
+import { designs } from '../../data'
+import type { DesignCategory } from '../../types/design'
 import { DesignFilter } from './DesignFilter'
 import { DesignCard } from './DesignCard'
 import { WhatsAppLink } from './WhatsAppLink'
-import { WHATSAPP_MESSAGES } from '@utils/whatsapp'
+import { WHATSAPP_MESSAGES } from '../../utils/whatsapp'
 
 export const DesignGallery = () => {
   const [activeCategory, setActiveCategory] = useState<DesignCategory | 'all'>(

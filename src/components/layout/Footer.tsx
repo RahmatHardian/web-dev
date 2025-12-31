@@ -1,7 +1,7 @@
 import { Instagram, MessageCircle } from 'lucide-react'
-import { footerContent } from '@data'
-import { useScrollToSection } from '@hooks'
-import { SOCIAL_LINKS } from '@utils/constants'
+import { footerContent } from '../../data'
+import { useScrollToSection } from '../../hooks'
+import { SOCIAL_LINKS } from '../../utils/constants'
 
 export const Footer = () => {
   const { scrollToSection } = useScrollToSection()
