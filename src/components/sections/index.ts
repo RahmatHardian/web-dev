@@ -1,0 +1,8 @@
+export { HeroSection } from './HeroSection'
+export { TrustIndicators } from './TrustIndicators'
+export { DesignPreview } from './DesignPreview'
+export { FeaturesSection } from './FeaturesSection'
+export { HowItWorks } from './HowItWorks'
+export { PricingSection } from './PricingSection'
+export { Testimonials } from './Testimonials'
+export { FinalCTA } from './FinalCTA'
