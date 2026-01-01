@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from 'react'
 import { clsx } from 'clsx'
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'info'
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'glass'
   size?: 'sm' | 'md' | 'lg'
   children: ReactNode
 }
@@ -23,6 +23,7 @@ export const Badge = ({
     success: 'bg-green-100 text-green-700',
     warning: 'bg-yellow-100 text-yellow-700',
     info: 'bg-blue-100 text-blue-700',
+    glass: 'badge-glass',
   }
 
   const sizeStyles = {

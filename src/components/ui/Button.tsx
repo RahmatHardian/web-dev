@@ -28,14 +28,14 @@ export const Button = ({
     secondary:
       'bg-secondary text-white hover:bg-dark-blue focus-visible:outline-secondary shadow-card hover:shadow-card-hover',
     outline:
-      'border border-border-light bg-transparent text-white-soft hover:bg-white/10 hover:border-white focus-visible:outline-primary',
-    ghost: 'bg-transparent text-primary hover:bg-primary/10 focus-visible:outline-primary',
+      'text-primary focus-visible:outline-primary btn-ghost',
+    ghost: 'text-primary focus-visible:outline-primary btn-ghost',
   }
 
   const sizeStyles = {
     sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-accent',
-    lg: 'px-8 py-4 text-accent',
+    md: 'px-6 py-3 text-base',
+    lg: 'px-8 py-4 text-base',
   }
 
   return (

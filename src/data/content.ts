@@ -1,10 +1,9 @@
 export const heroContent = {
   headline: 'Undangan Digital Pernikahan',
   subheadline: 'Simpel, Elegan, & Siap Dibagikan',
-  description:
-    'Buat undangan pernikahan online yang bisa langsung dibagikan ke WhatsApp dan media sosial.',
+  description: '',
   primaryCTA: 'Buat Undangan Sekarang',
-  secondaryCTA: 'Gratis Konsultasi via WhatsApp',
+  secondaryCTA: 'Konsultasi Gratis',
 }
 
 export const designPreviewContent = {

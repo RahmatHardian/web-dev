@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from 'react'
 import { clsx } from 'clsx'
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'bordered' | 'elevated'
+  variant?: 'default' | 'bordered' | 'elevated' | 'glass'
   padding?: 'none' | 'sm' | 'md' | 'lg'
   hover?: boolean
   children: ReactNode
@@ -16,12 +16,13 @@ export const Card = ({
   className,
   ...props
 }: CardProps) => {
-  const baseStyles = 'rounded-xl bg-white'
+  const baseStyles = 'rounded-xl'
 
   const variantStyles = {
-    default: 'shadow-sm',
-    bordered: 'border border-gray-200',
-    elevated: 'shadow-lg shadow-gray-200/50',
+    default: 'bg-white shadow-sm',
+    bordered: 'bg-white border border-gray-200',
+    elevated: 'bg-white shadow-lg shadow-gray-200/50',
+    glass: 'card-glass',
   }
 
   const paddingStyles = {

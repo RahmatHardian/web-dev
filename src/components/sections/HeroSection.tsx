@@ -26,15 +26,12 @@ export const HeroSection = () => {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Content */}
           <div className="text-center lg:text-left animate-fade-in-up">
-            <h1 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-h1 mb-6">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-h1 mb-8">
               {heroContent.headline}
               <span className="mt-2 block gradient-text">
                 {heroContent.subheadline}
               </span>
             </h1>
-            <p className="text-body text-white-soft mb-8 max-w-2xl">
-              {heroContent.description}
-            </p>
 
             {/* CTAs - MarkAgency button styles */}
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">

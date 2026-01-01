@@ -104,14 +104,55 @@
   }
 
   .btn-secondary {
-    @apply bg-transparent border border-border-light text-white-soft px-8 py-4 rounded
-           font-semibold text-accent transition-all duration-300
-           hover:bg-white/10 hover:border-white;
+    @apply px-8 py-4 rounded font-semibold transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   .btn-ghost {
-    @apply bg-transparent text-primary px-8 py-4 rounded font-semibold
-           transition-all duration-300 hover:bg-primary/10 border border-primary;
+    @apply px-8 py-4 rounded font-semibold transition-all duration-300;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(187, 139, 50, 0.5);
+    color: #BB8B32;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(187, 139, 50, 0.15);
+    border-color: #BB8B32;
+  }
+
+  /* Liquid Glass Card */
+  .card-glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+      0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Liquid Glass Badge */
+  .badge-glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   /* Section Dark Background */
