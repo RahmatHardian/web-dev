@@ -27,15 +27,47 @@ export const Header = () => {
   }
 
   return (
-    <header
-      className={clsx(
-        'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
-        isScrolled
-          ? 'bg-accent/95 backdrop-blur-md shadow-deep'
-          : 'bg-transparent'
-      )}
-    >
-      <div className="container-custom">
+    <header className="fixed top-0 left-0 right-0 z-40">
+      {/* Layer 1: Distortion Effect (SVG filter) */}
+      <div
+        className={clsx(
+          'absolute inset-0 transition-opacity duration-500',
+          isScrolled ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{ filter: 'url(#liquid-glass-navbar)' }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 2: Frosted Glass Background */}
+      <div
+        className={clsx(
+          'absolute inset-0 transition-all duration-300',
+          isScrolled
+            ? 'bg-accent/60 backdrop-blur-xl'
+            : 'bg-transparent'
+        )}
+        style={{
+          WebkitBackdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
+          backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 3: Specular Highlight Border */}
+      <div
+        className={clsx(
+          'absolute inset-0 pointer-events-none transition-opacity duration-300',
+          isScrolled ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{
+          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), inset 0 -1px 0 0 rgba(0,0,0,0.1)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 4: Content */}
+      <div className="relative z-10 container-custom">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <button

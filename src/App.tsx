@@ -1,5 +1,6 @@
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { Header, Footer, StickyWhatsAppButton } from './components/layout'
+import { LiquidGlassFilter } from './components/ui/LiquidGlassFilter'
 import {
   HeroSection,
   TrustIndicators,
@@ -41,6 +42,9 @@ function App() {
       </Helmet>
 
       <div className="min-h-screen bg-white">
+        {/* SVG Filter for Liquid Glass Effect */}
+        <LiquidGlassFilter />
+
         {/* Header */}
         <Header />
 
