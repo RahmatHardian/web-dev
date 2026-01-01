@@ -20,22 +20,22 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+    'inline-flex items-center justify-center gap-2 rounded font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
   const variantStyles = {
     primary:
-      'bg-primary-500 text-white hover:bg-primary-600 focus-visible:outline-primary-500 shadow-sm hover:shadow-md',
+      'bg-primary text-white hover:bg-secondary focus-visible:outline-primary shadow-card hover:shadow-card-hover hover:animate-sink',
     secondary:
-      'bg-secondary-500 text-white hover:bg-secondary-600 focus-visible:outline-secondary-500 shadow-sm hover:shadow-md',
+      'bg-secondary text-white hover:bg-dark-blue focus-visible:outline-secondary shadow-card hover:shadow-card-hover',
     outline:
-      'border-2 border-primary-500 text-primary-600 hover:bg-primary-50 focus-visible:outline-primary-500',
-    ghost: 'text-gray-700 hover:bg-gray-100 focus-visible:outline-gray-500',
+      'border border-border-light bg-transparent text-white-soft hover:bg-white/10 hover:border-white focus-visible:outline-primary',
+    ghost: 'bg-transparent text-primary hover:bg-primary/10 focus-visible:outline-primary',
   }
 
   const sizeStyles = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-5 py-2.5 text-base',
-    lg: 'px-6 py-3 text-lg',
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-3 text-accent',
+    lg: 'px-8 py-4 text-accent',
   }
 
   return (

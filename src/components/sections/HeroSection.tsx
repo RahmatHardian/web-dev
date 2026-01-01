@@ -1,5 +1,4 @@
 import { Section } from '../common'
-import { Button } from '../ui'
 import { WhatsAppLink } from '../features/WhatsAppLink'
 import { heroContent } from '../../data'
 import { WHATSAPP_MESSAGES } from '../../utils/whatsapp'
@@ -10,58 +9,57 @@ export const HeroSection = () => {
 
   return (
     <Section id="hero" noPadding fullWidth className="relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50" />
-      <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-primary-100 opacity-20 blur-3xl" />
-      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-secondary-100 opacity-20 blur-3xl" />
+      {/* Dark gradient background - MarkAgency style */}
+      <div className="absolute inset-0 gradient-dark" />
+      <div className="absolute inset-0 gradient-dark-overlay" />
 
       <div className="container-custom relative pt-32 pb-20 lg:pt-40 lg:pb-32">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Content */}
-          <div className="text-center lg:text-left">
-            <h1 className="heading-primary mb-6">
+          <div className="text-center lg:text-left animate-fade-in-up">
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-h1 mb-6">
               {heroContent.headline}
-              <span className="mt-2 block bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              <span className="mt-2 block gradient-text">
                 {heroContent.subheadline}
               </span>
             </h1>
-            <p className="text-body mb-8 max-w-2xl">
+            <p className="text-body text-white-soft mb-8 max-w-2xl">
               {heroContent.description}
             </p>
 
-            {/* CTAs */}
+            {/* CTAs - MarkAgency button styles */}
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
-              <Button
-                size="lg"
+              <button
                 onClick={() => scrollToSection('pricing')}
-                className="shadow-lg hover:shadow-xl"
+                className="btn-primary shadow-deep"
               >
                 {heroContent.primaryCTA}
-              </Button>
+              </button>
               <WhatsAppLink
                 message={WHATSAPP_MESSAGES.consultation}
                 buttonVariant="outline"
                 buttonSize="lg"
+                className="btn-secondary"
               >
                 {heroContent.secondaryCTA}
               </WhatsAppLink>
             </div>
           </div>
 
-          {/* Image */}
-          <div className="relative">
+          {/* Image - MarkAgency card style */}
+          <div className="relative animate-fade-in-right" style={{ animationDelay: '0.2s' }}>
             <div className="relative mx-auto max-w-md">
-              {/* Floating card mockup */}
-              <div className="relative rounded-2xl bg-white p-8 shadow-2xl">
-                <div className="mb-4 h-64 rounded-lg bg-gradient-to-br from-primary-100 to-secondary-100" />
+              {/* Floating card mockup with MarkAgency shadow */}
+              <div className="relative rounded-lg bg-white p-8 shadow-deep">
+                <div className="mb-4 h-64 rounded-lg skeleton" />
                 <div className="space-y-3">
-                  <div className="h-4 w-3/4 rounded bg-gray-200" />
-                  <div className="h-4 w-1/2 rounded bg-gray-200" />
+                  <div className="h-4 w-3/4 rounded bg-gray-light" />
+                  <div className="h-4 w-1/2 rounded bg-gray-light" />
                 </div>
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-accent-200 opacity-50" />
-              <div className="absolute -bottom-4 -left-4 h-32 w-32 rounded-full bg-primary-200 opacity-50" />
+              {/* Decorative elements - gold/blue accents */}
+              <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-primary opacity-30 blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 h-32 w-32 rounded-full bg-secondary opacity-30 blur-2xl" />
             </div>
           </div>
         </div>

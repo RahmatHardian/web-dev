@@ -18,10 +18,10 @@ export const DesignFilter = ({
           key={category.id}
           onClick={() => onFilterChange(category.id as DesignCategory | 'all')}
           className={clsx(
-            'rounded-lg px-5 py-2.5 text-sm font-medium transition-all',
+            'rounded px-5 py-2.5 text-sm font-semibold transition-all duration-300',
             activeCategory === category.id
-              ? 'bg-primary-500 text-white shadow-md'
-              : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+              ? 'bg-primary text-white shadow-card'
+              : 'bg-white text-accent hover:bg-primary/10 border border-gray-200 hover:border-primary'
           )}
         >
           {category.label}

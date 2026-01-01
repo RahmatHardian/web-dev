@@ -31,7 +31,7 @@ export const Header = () => {
       className={clsx(
         'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm'
+          ? 'bg-accent/95 backdrop-blur-md shadow-deep'
           : 'bg-transparent'
       )}
     >
@@ -40,7 +40,7 @@ export const Header = () => {
           {/* Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="font-heading text-2xl font-bold text-primary-600"
+            className="font-heading text-2xl font-bold text-primary transition-colors hover:text-gold-light"
           >
             nikah.in
           </button>
@@ -51,7 +51,7 @@ export const Header = () => {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-primary-600"
+                className="text-accent font-medium transition-colors hover:text-primary"
               >
                 {link.label}
               </button>
@@ -63,6 +63,7 @@ export const Header = () => {
             <WhatsAppLink
               message={WHATSAPP_MESSAGES.consultation}
               buttonSize="sm"
+              className="btn-primary"
             >
               Konsultasi Gratis
             </WhatsAppLink>
@@ -71,7 +72,7 @@ export const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden rounded-lg p-2 text-gray-700 hover:bg-gray-100"
+            className="lg:hidden rounded-lg p-2 text-white-soft hover:bg-white/10"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -84,13 +85,13 @@ export const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className="border-t border-gray-200 py-4 lg:hidden">
+          <nav className="border-t border-border-light py-4 lg:hidden bg-accent/95 backdrop-blur-md">
             <div className="flex flex-col gap-4">
               {NAV_LINKS.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-left text-base font-medium text-gray-700 transition-colors hover:text-primary-600"
+                  className="text-left text-base font-medium text-white-soft transition-colors hover:text-primary"
                 >
                   {link.label}
                 </button>
@@ -98,7 +99,7 @@ export const Header = () => {
               <WhatsAppLink
                 message={WHATSAPP_MESSAGES.consultation}
                 buttonSize="md"
-                className="w-full"
+                className="w-full btn-primary"
               >
                 Konsultasi Gratis
               </WhatsAppLink>

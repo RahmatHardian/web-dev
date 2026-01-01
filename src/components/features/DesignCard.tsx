@@ -13,7 +13,7 @@ export const DesignCard = ({ design, onPreview }: DesignCardProps) => {
       padding="none"
       hover
       onClick={() => onPreview?.(design.id)}
-      className="overflow-hidden"
+      className="overflow-hidden shadow-card card-hover bg-white"
     >
       <LazyImage
         src={design.thumbnail}
@@ -22,8 +22,8 @@ export const DesignCard = ({ design, onPreview }: DesignCardProps) => {
       />
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900">{design.title}</h3>
-          <Badge variant="primary" size="sm">
+          <h3 className="font-semibold text-accent">{design.title}</h3>
+          <Badge variant="primary" size="sm" className="bg-secondary text-white">
             {design.category}
           </Badge>
         </div>
@@ -32,7 +32,7 @@ export const DesignCard = ({ design, onPreview }: DesignCardProps) => {
             {design.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
-                className="text-xs text-gray-500"
+                className="text-xs text-text-gray"
               >
                 #{tag}
               </span>
