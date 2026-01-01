@@ -55,12 +55,12 @@ export const HeroSection = () => {
           {/* Image - MarkAgency card style */}
           <div className="relative animate-fade-in-right" style={{ animationDelay: '0.2s' }}>
             <div className="relative mx-auto max-w-md">
-              {/* Floating card mockup with MarkAgency shadow */}
-              <div className="relative rounded-lg bg-white p-8 shadow-deep">
-                <div className="mb-4 h-64 rounded-lg skeleton" />
+              {/* Floating card mockup with glass effect */}
+              <div className="relative rounded-lg card-glass p-8 shadow-deep">
+                <div className="mb-4 h-64 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20" />
                 <div className="space-y-3">
-                  <div className="h-4 w-3/4 rounded bg-gray-light" />
-                  <div className="h-4 w-1/2 rounded bg-gray-light" />
+                  <div className="h-4 w-3/4 rounded bg-white/20" />
+                  <div className="h-4 w-1/2 rounded bg-white/20" />
                 </div>
               </div>
               {/* Decorative elements - gold/blue accents */}

@@ -21,7 +21,7 @@ export const DesignFilter = ({
             'rounded px-5 py-2.5 text-sm font-semibold transition-all duration-300',
             activeCategory === category.id
               ? 'bg-primary text-white shadow-card'
-              : 'bg-white text-accent hover:bg-primary/10 border border-gray-200 hover:border-primary'
+              : 'bg-white/15 backdrop-blur-sm text-accent hover:bg-white/25 border border-white/20 hover:border-primary'
           )}
         >
           {category.label}

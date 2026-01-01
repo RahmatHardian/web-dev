@@ -11,9 +11,10 @@ export const DesignCard = ({ design, onPreview }: DesignCardProps) => {
   return (
     <Card
       padding="none"
+      variant="glass"
       hover
       onClick={() => onPreview?.(design.id)}
-      className="overflow-hidden shadow-card card-hover bg-white"
+      className="overflow-hidden card-hover"
     >
       <LazyImage
         src={design.thumbnail}

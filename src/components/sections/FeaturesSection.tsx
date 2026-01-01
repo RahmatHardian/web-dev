@@ -19,10 +19,10 @@ export const FeaturesSection = () => {
 
       <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3 stagger-children relative z-10">
         {features.map((feature) => (
-          <Card key={feature.id} padding="lg" hover className="shadow-card card-hover bg-white">
+          <Card key={feature.id} variant="glass" padding="lg" hover className="card-hover">
             <div className="flex flex-col items-center text-center">
-              <div className="mb-4 rounded-full bg-blue-light p-4">
-                <Icon name={feature.icon} size={32} className="text-dark-blue" />
+              <div className="mb-4 rounded-full bg-white/20 backdrop-blur-sm p-4 border border-white/30">
+                <Icon name={feature.icon} size={32} className="text-accent" />
               </div>
               <h3 className="mb-2 text-h5 font-semibold text-accent">
                 {feature.title}

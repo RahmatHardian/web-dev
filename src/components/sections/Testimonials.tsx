@@ -30,7 +30,7 @@ export const Testimonials = () => {
         </div>
 
         <div className="mt-16 mx-auto max-w-4xl">
-          <Card padding="lg" variant="elevated" className="bg-white/5 backdrop-blur-sm border border-border-light shadow-deep">
+          <Card padding="lg" variant="glass" className="shadow-deep">
             <div className="flex flex-col items-center text-center">
               {/* Quote icon */}
               <Quote className="mb-6 h-12 w-12 text-secondary" />
@@ -60,7 +60,7 @@ export const Testimonials = () => {
             <div className="mt-8 flex items-center justify-center gap-4">
               <button
                 onClick={prev}
-                className="rounded-full bg-dark-blue p-2 text-white transition-colors hover:bg-secondary"
+                className="rounded-full bg-white/10 backdrop-blur-sm border border-white/20 p-2 text-white transition-colors hover:bg-white/20"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="h-6 w-6" />
@@ -84,7 +84,7 @@ export const Testimonials = () => {
 
               <button
                 onClick={next}
-                className="rounded-full bg-dark-blue p-2 text-white transition-colors hover:bg-secondary"
+                className="rounded-full bg-white/10 backdrop-blur-sm border border-white/20 p-2 text-white transition-colors hover:bg-white/20"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="h-6 w-6" />

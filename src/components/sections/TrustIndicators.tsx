@@ -8,7 +8,7 @@ export const TrustIndicators = () => {
         {trustIndicators.map((indicator) => (
           <div
             key={indicator.id}
-            className="flex items-center justify-center gap-3 rounded-lg bg-white px-6 py-5 shadow-card card-hover"
+            className="flex items-center justify-center gap-3 rounded-lg card-glass px-6 py-5 card-hover"
           >
             <Icon name={indicator.icon} size={24} className="text-secondary" />
             <span className="font-semibold text-accent">{indicator.text}</span>

@@ -25,7 +25,7 @@ export const HowItWorks = () => {
 
               {/* Icon */}
               <div className="mb-4 flex justify-center">
-                <div className="rounded-full bg-blue-light p-3">
+                <div className="rounded-full bg-white/20 backdrop-blur-sm p-3 border border-white/30">
                   <Icon name={step.icon} size={32} className="text-secondary" />
                 </div>
               </div>
