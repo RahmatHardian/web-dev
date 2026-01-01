@@ -9,9 +9,18 @@ export const HeroSection = () => {
 
   return (
     <Section id="hero" noPadding fullWidth className="relative overflow-hidden">
-      {/* Dark gradient background - MarkAgency style */}
-      <div className="absolute inset-0 gradient-dark" />
+      {/* Background image with overlay - MarkAgency style */}
+      <div
+        className="absolute inset-0 hero-bg-image"
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+      />
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 gradient-dark opacity-85" />
       <div className="absolute inset-0 gradient-dark-overlay" />
+
+      {/* Decorative glass blobs */}
+      <div className="glass-blob glass-blob-lg -top-20 -left-20 opacity-50" />
+      <div className="glass-blob glass-blob-md top-1/2 -right-10 opacity-40" />
 
       <div className="container-custom relative pt-32 pb-20 lg:pt-40 lg:pb-32">
         <div className="grid items-center gap-12 lg:grid-cols-2">
