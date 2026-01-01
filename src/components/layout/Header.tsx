@@ -38,17 +38,17 @@ export const Header = () => {
         aria-hidden="true"
       />
 
-      {/* Layer 2: Frosted Glass Background */}
+      {/* Layer 2: Frosted Glass Background (neutral/light tint) */}
       <div
         className={clsx(
           'absolute inset-0 transition-all duration-300',
           isScrolled
-            ? 'bg-accent/60 backdrop-blur-xl'
+            ? 'bg-white/10 backdrop-blur-sm'
             : 'bg-transparent'
         )}
         style={{
-          WebkitBackdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
-          backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(8px) saturate(120%)' : 'none',
+          backdropFilter: isScrolled ? 'blur(8px) saturate(120%)' : 'none',
         }}
         aria-hidden="true"
       />
@@ -60,8 +60,8 @@ export const Header = () => {
           isScrolled ? 'opacity-100' : 'opacity-0'
         )}
         style={{
-          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), inset 0 -1px 0 0 rgba(0,0,0,0.1)',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.3), inset 0 -1px 0 0 rgba(0,0,0,0.1)',
+          borderBottom: '1px solid rgba(255,255,255,0.2)',
         }}
         aria-hidden="true"
       />
@@ -83,7 +83,7 @@ export const Header = () => {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="text-accent font-medium transition-colors hover:text-primary"
+                className="text-white font-medium transition-colors hover:text-primary drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
               >
                 {link.label}
               </button>

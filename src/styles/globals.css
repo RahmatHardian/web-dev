@@ -110,8 +110,8 @@
   }
 
   .btn-ghost {
-    @apply bg-transparent text-primary px-8 py-4 rounded font-semibold text-accent
-           transition-all duration-300 hover:bg-primary/10;
+    @apply bg-transparent text-primary px-8 py-4 rounded font-semibold
+           transition-all duration-300 hover:bg-primary/10 border border-primary;
   }
 
   /* Section Dark Background */
@@ -290,9 +290,9 @@ button {
 .liquid-glass-frosted {
   position: absolute;
   inset: 0;
-  background: rgba(7, 18, 26, 0.6);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
 }
 
 .liquid-glass-specular {
