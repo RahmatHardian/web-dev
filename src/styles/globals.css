@@ -57,7 +57,7 @@
   }
 
   .text-body {
-    @apply text-body text-text-gray;
+    @apply text-lg text-text-gray;
   }
 
   /* MarkAgency Gradient Backgrounds */
