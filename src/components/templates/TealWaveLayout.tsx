@@ -5,6 +5,32 @@ import { useTemplateContext } from './TemplateProvider'
 import { MusicPlayer, CoverOverlay, FallingPetals, CountdownTimer, GalleryLightbox } from './common'
 import { useForm } from 'react-hook-form'
 
+// Abstract background waves
+const AbstractWaves = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+    <svg
+      className="absolute bottom-0 left-0 w-full h-[40vh] opacity-[0.05]"
+      viewBox="0 0 1440 320"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="currentColor"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      />
+    </svg>
+    <svg
+      className="absolute top-0 left-0 w-full h-[40vh] opacity-[0.05] rotate-180"
+      viewBox="0 0 1440 320"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="currentColor"
+        d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,128C672,107,768,117,864,138.7C960,160,1056,192,1152,197.3C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      />
+    </svg>
+  </div>
+)
+
 // Full-screen section wrapper with snap scroll
 const FullScreenSection = ({
   id,
@@ -19,10 +45,13 @@ const FullScreenSection = ({
 }) => (
   <section
     id={id}
-    className={`min-h-screen w-full flex flex-col items-center justify-center relative snap-start ${className}`}
+    className={`min-h-screen w-full flex flex-col items-center justify-center relative snap-start overflow-hidden ${className}`}
     style={style}
   >
-    {children}
+    <AbstractWaves />
+    <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center">
+      {children}
+    </div>
   </section>
 )
 
@@ -115,8 +144,7 @@ export const TealWaveLayout = () => {
   const [isCoverOpen, setIsCoverOpen] = useState(!features.showCoverOverlay)
   const [activeSection, setActiveSection] = useState(0)
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
+  // Lightbox state removed - GalleryLightbox manages its own state
   const containerRef = useRef<HTMLDivElement>(null)
 
   // RSVP Form
@@ -182,10 +210,7 @@ export const TealWaveLayout = () => {
     setTimeout(() => setCopiedAccount(null), 2000)
   }
 
-  const openLightbox = (index: number) => {
-    setLightboxIndex(index)
-    setLightboxOpen(true)
-  }
+  // openLightbox removed - GalleryLightbox handles clicks internally
 
   const onRsvpSubmit = async () => {
     await new Promise((r) => setTimeout(r, 1000))
@@ -541,35 +566,8 @@ export const TealWaveLayout = () => {
                 {gallery.title || 'Our Gallery'}
               </motion.h2>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {gallery.photos.slice(0, 6).map((photo, index) => (
-                  <motion.div
-                    key={index}
-                    className="aspect-square rounded-lg overflow-hidden cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => openLightbox(index)}
-                  >
-                    <img
-                      src={photo.url}
-                      alt={photo.caption || `Photo ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                ))}
-              </div>
+              <GalleryLightbox photos={gallery.photos} columns={3} />
             </div>
-
-            <GalleryLightbox
-              photos={gallery.photos}
-              isOpen={lightboxOpen}
-              currentIndex={lightboxIndex}
-              onClose={() => setLightboxOpen(false)}
-              onNavigate={setLightboxIndex}
-            />
           </FullScreenSection>
         )}
 
