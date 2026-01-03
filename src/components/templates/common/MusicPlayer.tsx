@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { VolumeX, Music } from 'lucide-react'
+import { VolumeX, Music, Loader2, AlertCircle } from 'lucide-react'
 import { useAudio } from '../../../hooks/useAudio'
 import { useTemplateContext } from '../TemplateProvider'
 
@@ -11,7 +11,7 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
   const { config } = useTemplateContext()
   const { music } = config
 
-  const { isPlaying, toggle } = useAudio(music.url, music.autoplay)
+  const { isPlaying, toggle, error, isLoading } = useAudio(music.url, music.autoplay)
 
   if (!music.enabled) return null
 
@@ -19,7 +19,7 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
     <motion.button
       className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-colors ${className}`}
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        backgroundColor: error ? 'rgba(239, 68, 68, 0.9)' : 'rgba(255, 255, 255, 0.9)',
         backdropFilter: 'blur(8px)',
         border: '1px solid rgba(0, 0, 0, 0.1)',
       }}
@@ -30,9 +30,29 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1 }}
       aria-label={isPlaying ? 'Pause music' : 'Play music'}
+      disabled={!!error}
     >
       <div className="relative">
-        {isPlaying ? (
+        {/* Loading state */}
+        {isLoading && !error && (
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          >
+            <Loader2
+              className="w-6 h-6"
+              style={{ color: 'var(--template-text-muted)' }}
+            />
+          </motion.div>
+        )}
+
+        {/* Error state */}
+        {error && (
+          <AlertCircle className="w-6 h-6 text-white" />
+        )}
+
+        {/* Playing state */}
+        {!isLoading && !error && isPlaying && (
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
@@ -42,7 +62,10 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
               style={{ color: 'var(--template-primary)' }}
             />
           </motion.div>
-        ) : (
+        )}
+
+        {/* Paused state */}
+        {!isLoading && !error && !isPlaying && (
           <VolumeX
             className="w-6 h-6"
             style={{ color: 'var(--template-text-muted)' }}
@@ -50,7 +73,7 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
         )}
 
         {/* Sound wave animation when playing */}
-        {isPlaying && (
+        {isPlaying && !error && (
           <motion.div
             className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
             style={{ backgroundColor: 'var(--template-primary)' }}
@@ -67,22 +90,27 @@ export const MusicPlayer = ({ className = '' }: MusicPlayerProps) => {
         )}
       </div>
 
-      {/* Song info tooltip */}
-      {music.title && (
-        <motion.div
-          className="absolute bottom-full right-0 mb-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 pointer-events-none"
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            color: 'white',
-          }}
-          whileHover={{ opacity: 1 }}
-        >
-          <div className="font-medium">{music.title}</div>
-          {music.artist && (
-            <div className="text-xs opacity-75">{music.artist}</div>
-          )}
-        </motion.div>
-      )}
+      {/* Song info / Error tooltip */}
+      <motion.div
+        className="absolute bottom-full right-0 mb-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap pointer-events-none"
+        style={{
+          backgroundColor: error ? 'rgba(239, 68, 68, 0.9)' : 'rgba(0, 0, 0, 0.8)',
+          color: 'white',
+          opacity: error ? 1 : 0,
+        }}
+        whileHover={{ opacity: 1 }}
+      >
+        {error ? (
+          <div className="text-xs max-w-[200px] whitespace-normal">{error}</div>
+        ) : (
+          <>
+            <div className="font-medium">{music.title}</div>
+            {music.artist && (
+              <div className="text-xs opacity-75">{music.artist}</div>
+            )}
+          </>
+        )}
+      </motion.div>
     </motion.button>
   )
 }

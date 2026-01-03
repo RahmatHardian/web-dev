@@ -226,7 +226,7 @@ export const demoElegantConfig: TemplateConfig = {
     enabled: true,
     autoplay: true,
     // url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    url: 'https://drive.google.com/uc?export=download&id=1aJaV29KtE3xsbcMMC3A3pYR9NSe6_euj',
+    url: 'https://drive.google.com/uc?export=download&id=1DVOwYV2Hv9BFkzV9hCXK4t4GFKeIx9uL',
     title: 'I Like You So Much, You’ll Know It (我多喜欢你，你会知道)- A Love So Beautiful OST - Wang Junqi [English Cover]',
     artist: 'Wang Junqi',
   },
