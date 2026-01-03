@@ -254,6 +254,10 @@ export interface FeatureToggles {
   showMusic: boolean
   enableAnimations: boolean
   enableParallax: boolean
+  // New features for Template #2+
+  showCoverOverlay?: boolean // Click-to-open cover page
+  enableAutoSlide?: boolean // Auto-slide through sections
+  autoSlideInterval?: number // Interval in milliseconds (default: 5000)
 }
 
 // ============================================

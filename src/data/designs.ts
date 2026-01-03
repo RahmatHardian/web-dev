@@ -1,7 +1,10 @@
 import type { Design } from '../types/design'
 
 export const designs: Design[] = [
-  // Elegant Designs
+  // ============================================
+  // ELEGANT DESIGNS (Default Layout)
+  // Classic, timeless, and sophisticated
+  // ============================================
   {
     id: 'elegant-1',
     title: 'Golden Elegance',
@@ -13,14 +16,24 @@ export const designs: Design[] = [
   },
   {
     id: 'elegant-2',
-    title: 'Royal Bloom',
+    title: 'Rose Garden',
     category: 'elegant',
-    thumbnail: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=600&fit=crop',
-    tags: ['floral', 'elegant', 'romantic'],
-    colors: ['#8b7355', '#e8d5c4', '#ffffff'],
+    thumbnail: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=400&h=600&fit=crop',
+    previewUrl: '/preview/elegant-2',
+    tags: ['romantic', 'pink', 'floral', 'rose'],
+    colors: ['#be185d', '#f9a8d4', '#fdf2f8'],
+  },
+  {
+    id: 'elegant-3',
+    title: 'Midnight Navy',
+    category: 'elegant',
+    thumbnail: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=600&fit=crop',
+    previewUrl: '/preview/elegant-3',
+    tags: ['sophisticated', 'navy', 'silver', 'formal'],
+    colors: ['#1e3a5f', '#94a3b8', '#f8fafc'],
   },
 
-  // Minimal Designs
+  // Minimal Designs (placeholder - no preview yet)
   {
     id: 'minimal-1',
     title: 'Pure Minimal',
@@ -38,7 +51,7 @@ export const designs: Design[] = [
     colors: ['#000000', '#ffffff', '#e5e5e5'],
   },
 
-  // Islami Designs
+  // Islami Designs (placeholder - no preview yet)
   {
     id: 'islami-1',
     title: 'Barakah',
@@ -56,7 +69,7 @@ export const designs: Design[] = [
     colors: ['#1a472a', '#c9a961', '#f8f8f8'],
   },
 
-  // Adat Designs
+  // Adat Designs (placeholder - no preview yet)
   {
     id: 'adat-1',
     title: 'Nusantara',
@@ -74,22 +87,36 @@ export const designs: Design[] = [
     colors: ['#a0522d', '#daa520', '#fff8dc'],
   },
 
-  // Modern Designs
+  // ============================================
+  // MODERN DESIGNS (TealWave Layout)
+  // Features: Cover overlay + Auto-slide
+  // ============================================
   {
     id: 'modern-1',
-    title: 'Contemporary Love',
+    title: 'Teal Wave',
     category: 'modern',
-    thumbnail: 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&h=600&fit=crop',
-    tags: ['modern', 'trendy', 'bold'],
-    colors: ['#ff6b6b', '#4ecdc4', '#ffffff'],
+    thumbnail: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&h=600&fit=crop',
+    previewUrl: '/preview/modern-1',
+    tags: ['modern', 'teal', 'wave', 'turquoise'],
+    colors: ['#0d9488', '#5eead4', '#f0fdfa'],
   },
   {
     id: 'modern-2',
-    title: 'Urban Chic',
+    title: 'Sunset Coral',
     category: 'modern',
-    thumbnail: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=600&fit=crop',
-    tags: ['stylish', 'urban', 'sophisticated'],
-    colors: ['#2c3e50', '#e74c3c', '#ecf0f1'],
+    thumbnail: 'https://images.unsplash.com/photo-1495602787267-96ab76127c2a?w=400&h=600&fit=crop',
+    previewUrl: '/preview/modern-2',
+    tags: ['warm', 'coral', 'sunset', 'orange'],
+    colors: ['#ea580c', '#fdba74', '#fff7ed'],
+  },
+  {
+    id: 'modern-3',
+    title: 'Lavender Dreams',
+    category: 'modern',
+    thumbnail: 'https://images.unsplash.com/photo-1464699908537-0954e50791ee?w=400&h=600&fit=crop',
+    previewUrl: '/preview/modern-3',
+    tags: ['dreamy', 'lavender', 'purple', 'romantic'],
+    colors: ['#7c3aed', '#c4b5fd', '#f5f3ff'],
   },
 ]
 

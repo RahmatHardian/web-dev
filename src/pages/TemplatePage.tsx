@@ -2,8 +2,8 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Eye } from 'lucide-react'
-import { TemplateProvider, TemplateLayout } from '../components/templates'
-import { getTemplateConfig } from '../data/templates'
+import { TemplateProvider, TemplateLayout, TealWaveLayout } from '../components/templates'
+import { getTemplateConfig, getTemplateLayout } from '../data/templates'
 import type { GuestInfo } from '../types/template'
 
 interface TemplatePageProps {
@@ -18,6 +18,7 @@ export const TemplatePage = ({ mode }: TemplatePageProps) => {
   // Get template config based on mode
   const configId = mode === 'preview' ? templateId : weddingSlug
   const config = configId ? getTemplateConfig(configId) : null
+  const layoutType = configId ? getTemplateLayout(configId) : 'default'
 
   // Parse guest info from URL params
   const guestName = searchParams.get('to')
@@ -104,7 +105,7 @@ export const TemplatePage = ({ mode }: TemplatePageProps) => {
       {/* Template content */}
       <div className={mode === 'preview' ? 'pt-10' : ''}>
         <TemplateProvider config={config} guest={guest}>
-          <TemplateLayout />
+          {layoutType === 'teal-wave' ? <TealWaveLayout /> : <TemplateLayout />}
         </TemplateProvider>
       </div>
     </>
