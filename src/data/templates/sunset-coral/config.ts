@@ -203,7 +203,7 @@ export const sunsetCoralConfig: TemplateConfig = {
   music: {
     enabled: true,
     autoplay: true,
-    url: '/music/I Like You So Much, You\'ll Know It - A Love So Beautiful OST -Wang Junqi [English Cover].mp3',
+    url: '/music/wedding-song.mp3',
     title: 'I Like You So Much, You\'ll Know It',
     artist: 'Wang Junqi',
   },

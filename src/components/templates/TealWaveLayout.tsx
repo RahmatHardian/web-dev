@@ -1,278 +1,804 @@
-import { useState, useMemo } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Heart, Play, Pause, ChevronUp, ChevronDown } from 'lucide-react'
+import { Heart, ChevronDown, MapPin, Calendar, Clock, Copy, Check, Send } from 'lucide-react'
 import { useTemplateContext } from './TemplateProvider'
-import { MusicPlayer, CoverOverlay } from './common'
-import {
-  CoverSection,
-  CoupleSection,
-  EventSection,
-  LoveStorySection,
-  GallerySection,
-  RSVPSection,
-  GiftSection,
-  GuestBookSection,
-} from './sections'
-import { useAutoSlide } from '../../hooks/useAutoSlide'
+import { MusicPlayer, CoverOverlay, FallingPetals, CountdownTimer, GalleryLightbox } from './common'
+import { useForm } from 'react-hook-form'
 
-// Wavy SVG decoration component
-const WavyDecoration = ({
-  position,
-  color = 'rgba(255,255,255,0.1)',
-  flip = false,
+// Full-screen section wrapper with snap scroll
+const FullScreenSection = ({
+  id,
+  children,
+  className = '',
+  style = {},
 }: {
-  position: 'top' | 'bottom'
-  color?: string
-  flip?: boolean
+  id: string
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
 }) => (
-  <div
-    className={`absolute left-0 right-0 ${position === 'top' ? 'top-0' : 'bottom-0'} pointer-events-none`}
-    style={{ transform: flip ? 'scaleX(-1)' : undefined }}
+  <section
+    id={id}
+    className={`min-h-screen w-full flex flex-col items-center justify-center relative snap-start ${className}`}
+    style={style}
   >
-    <svg viewBox="0 0 1440 120" className="w-full h-16 md:h-24">
-      <path
-        fill={color}
-        d={
-          position === 'top'
-            ? 'M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,85.3C672,75,768,53,864,48C960,43,1056,53,1152,58.7C1248,64,1344,64,1392,64L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'
-            : 'M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,85.3C672,96,768,96,864,90.7C960,85,1056,75,1152,69.3C1248,64,1344,64,1392,64L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z'
-        }
-      />
-    </svg>
-  </div>
+    {children}
+  </section>
 )
 
-// Section IDs for auto-slide (reserved for future use)
-// const SECTION_IDS = [
-//   'cover',
-//   'couple',
-//   'events',
-//   'love-story',
-//   'gallery',
-//   'rsvp',
-//   'gift',
-//   'guest-book',
-// ]
+// Decorative corner ornaments
+const CornerOrnaments = ({ color = 'currentColor' }: { color?: string }) => (
+  <>
+    <div className="absolute top-4 left-4 w-16 h-16 opacity-30">
+      <svg viewBox="0 0 100 100" fill={color}>
+        <path d="M0,0 Q50,0 50,50 Q50,0 100,0 L100,10 Q60,10 50,50 Q40,10 0,10 Z" />
+        <circle cx="50" cy="20" r="5" />
+      </svg>
+    </div>
+    <div className="absolute top-4 right-4 w-16 h-16 opacity-30 rotate-90">
+      <svg viewBox="0 0 100 100" fill={color}>
+        <path d="M0,0 Q50,0 50,50 Q50,0 100,0 L100,10 Q60,10 50,50 Q40,10 0,10 Z" />
+        <circle cx="50" cy="20" r="5" />
+      </svg>
+    </div>
+    <div className="absolute bottom-4 left-4 w-16 h-16 opacity-30 -rotate-90">
+      <svg viewBox="0 0 100 100" fill={color}>
+        <path d="M0,0 Q50,0 50,50 Q50,0 100,0 L100,10 Q60,10 50,50 Q40,10 0,10 Z" />
+        <circle cx="50" cy="20" r="5" />
+      </svg>
+    </div>
+    <div className="absolute bottom-4 right-4 w-16 h-16 opacity-30 rotate-180">
+      <svg viewBox="0 0 100 100" fill={color}>
+        <path d="M0,0 Q50,0 50,50 Q50,0 100,0 L100,10 Q60,10 50,50 Q40,10 0,10 Z" />
+        <circle cx="50" cy="20" r="5" />
+      </svg>
+    </div>
+  </>
+)
+
+// Scroll indicator
+const ScrollIndicator = () => (
+  <motion.div
+    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
+    animate={{ y: [0, 10, 0] }}
+    transition={{ duration: 2, repeat: Infinity }}
+  >
+    <span className="text-xs tracking-widest uppercase">Scroll</span>
+    <ChevronDown className="w-5 h-5" />
+  </motion.div>
+)
+
+// Floating navigation dots
+const FloatingDots = ({
+  sections,
+  activeIndex,
+  onNavigate,
+}: {
+  sections: { id: string; label: string }[]
+  activeIndex: number
+  onNavigate: (index: number) => void
+}) => (
+  <motion.nav
+    className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3"
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: 1 }}
+  >
+    {sections.map((section, index) => (
+      <button
+        key={section.id}
+        onClick={() => onNavigate(index)}
+        className="group relative flex items-center justify-end"
+      >
+        <span
+          className="absolute right-6 px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
+          style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
+        >
+          {section.label}
+        </span>
+        <motion.div
+          className="w-2.5 h-2.5 rounded-full"
+          style={{
+            backgroundColor: activeIndex === index ? 'var(--template-primary)' : 'rgba(255,255,255,0.5)',
+            boxShadow: activeIndex === index ? '0 0 10px var(--template-primary)' : 'none',
+          }}
+          animate={{ scale: activeIndex === index ? 1.4 : 1 }}
+        />
+      </button>
+    ))}
+  </motion.nav>
+)
 
 export const TealWaveLayout = () => {
-  const { config } = useTemplateContext()
-  const { couple, features } = config
+  const { config, guest } = useTemplateContext()
+  const { couple, events, gallery, rsvp, giftRegistry, loveStory, guestBook, features, theme } = config
   const [isCoverOpen, setIsCoverOpen] = useState(!features.showCoverOverlay)
+  const [activeSection, setActiveSection] = useState(0)
+  const [copiedAccount, setCopiedAccount] = useState<string | null>(null)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Build active section list based on feature toggles
-  const activeSectionIds = useMemo(() => {
-    const ids: string[] = []
-    if (features.showCover) ids.push('cover')
-    if (features.showCouple) ids.push('couple')
-    if (features.showEvents) ids.push('events')
-    if (features.showLoveStory) ids.push('love-story')
-    if (features.showGallery) ids.push('gallery')
-    if (features.showRsvp) ids.push('rsvp')
-    if (features.showGiftRegistry) ids.push('gift')
-    if (features.showGuestBook) ids.push('guest-book')
-    return ids
-  }, [features])
+  // RSVP Form
+  const { register: registerRsvp, handleSubmit: handleRsvpSubmit, formState: { isSubmitting: isRsvpSubmitting } } = useForm()
+  const [rsvpSubmitted, setRsvpSubmitted] = useState(false)
 
-  // Auto-slide hook
-  const autoSlide = useAutoSlide({
-    enabled: features.enableAutoSlide ?? false,
-    interval: features.autoSlideInterval ?? 5000,
-    sectionIds: activeSectionIds,
-    pauseOnInteraction: true,
+  // Guest book form
+  const { register: registerGuestbook, handleSubmit: handleGuestbookSubmit, reset: resetGuestbook, formState: { isSubmitting: isGuestbookSubmitting } } = useForm()
+  const [guestbookSubmitted, setGuestbookSubmitted] = useState(false)
+
+  // Section definitions
+  const sections = [
+    { id: 'hero', label: 'Home' },
+    { id: 'couple', label: 'Couple' },
+    { id: 'events', label: 'Events' },
+    { id: 'story', label: 'Story' },
+    { id: 'gallery', label: 'Gallery' },
+    { id: 'rsvp', label: 'RSVP' },
+    { id: 'gift', label: 'Gift' },
+    { id: 'wishes', label: 'Wishes' },
+  ].filter((s) => {
+    if (s.id === 'hero') return features.showCover
+    if (s.id === 'couple') return features.showCouple
+    if (s.id === 'events') return features.showEvents
+    if (s.id === 'story') return features.showLoveStory
+    if (s.id === 'gallery') return features.showGallery
+    if (s.id === 'rsvp') return features.showRsvp
+    if (s.id === 'gift') return features.showGiftRegistry
+    if (s.id === 'wishes') return features.showGuestBook
+    return true
   })
 
-  const handleCoverOpen = () => {
-    setIsCoverOpen(true)
+  // Track active section on scroll
+  useEffect(() => {
+    if (!isCoverOpen) return
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight / 2
+      sections.forEach((section, index) => {
+        const el = document.getElementById(section.id)
+        if (el && el.offsetTop <= scrollY) {
+          setActiveSection(index)
+        }
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isCoverOpen, sections])
+
+  const navigateToSection = useCallback((index: number) => {
+    const section = sections[index]
+    if (section) {
+      document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [sections])
+
+  const handleCoverOpen = () => setIsCoverOpen(true)
+
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedAccount(id)
+    setTimeout(() => setCopiedAccount(null), 2000)
   }
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
+    setLightboxOpen(true)
+  }
+
+  const onRsvpSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 1000))
+    setRsvpSubmitted(true)
+  }
+
+  const onGuestbookSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 1000))
+    setGuestbookSubmitted(true)
+    resetGuestbook()
+    setTimeout(() => setGuestbookSubmitted(false), 3000)
+  }
+
+  // Get wedding date for countdown
+  const weddingDate = events[0]?.date ? new Date(events[0].date) : new Date()
 
   return (
     <>
-      {/* Cover Overlay (click to open) */}
+      {/* Cover Overlay */}
       <AnimatePresence>
         {!isCoverOpen && features.showCoverOverlay && (
           <CoverOverlay onOpen={handleCoverOpen} />
         )}
       </AnimatePresence>
 
-      {/* Main content */}
+      {/* Main Content */}
       <motion.div
-        className="min-h-screen relative"
-        style={{
-          backgroundColor: 'var(--template-background)',
-          color: 'var(--template-text)',
-        }}
+        ref={containerRef}
+        className="snap-y snap-mandatory overflow-y-auto"
+        style={{ backgroundColor: 'var(--template-background)', color: 'var(--template-text)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isCoverOpen ? 1 : 0 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Falling Petals Animation */}
+        {isCoverOpen && <FallingPetals color="var(--template-primary)" count={12} />}
+
         {/* Music Player */}
         {features.showMusic && isCoverOpen && <MusicPlayer />}
 
-        {/* Auto-slide controls */}
-        {features.enableAutoSlide && isCoverOpen && (
-          <motion.div
-            className="fixed right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            {/* Play/Pause button */}
-            <button
-              onClick={autoSlide.toggle}
-              className="p-3 rounded-full shadow-lg transition-all hover:scale-110"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                color: 'var(--template-primary)',
-              }}
-              aria-label={autoSlide.isPlaying ? 'Pause auto-slide' : 'Play auto-slide'}
-            >
-              {autoSlide.isPlaying ? (
-                <Pause className="w-4 h-4" />
-              ) : (
-                <Play className="w-4 h-4" />
-              )}
-            </button>
+        {/* Floating Navigation */}
+        {isCoverOpen && (
+          <FloatingDots
+            sections={sections}
+            activeIndex={activeSection}
+            onNavigate={navigateToSection}
+          />
+        )}
 
-            {/* Navigation dots */}
-            <div
-              className="flex flex-col gap-1.5 py-2 px-1.5 rounded-full"
-              style={{ backgroundColor: 'rgba(255,255,255,0.9)' }}
+        {/* ==================== HERO SECTION ==================== */}
+        {features.showCover && (
+          <FullScreenSection
+            id="hero"
+            className="text-white text-center px-6"
+            style={{
+              background: `linear-gradient(135deg, var(--template-primary) 0%, var(--template-secondary) 100%)`,
+            }}
+          >
+            <CornerOrnaments color="white" />
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="max-w-lg"
             >
-              {activeSectionIds.map((id, index) => (
-                <button
-                  key={id}
-                  onClick={() => autoSlide.goToSection(index)}
-                  className="w-2.5 h-2.5 rounded-full transition-all"
-                  style={{
-                    backgroundColor:
-                      autoSlide.currentIndex === index
-                        ? 'var(--template-primary)'
-                        : 'var(--template-text-muted)',
-                    opacity: autoSlide.currentIndex === index ? 1 : 0.3,
-                    transform: autoSlide.currentIndex === index ? 'scale(1.3)' : 'scale(1)',
-                  }}
-                  aria-label={`Go to section ${index + 1}`}
+              <p className="text-sm tracking-[0.3em] uppercase mb-4 opacity-80">
+                The Wedding Of
+              </p>
+
+              <h1
+                className="text-5xl md:text-7xl mb-2"
+                style={{ fontFamily: 'var(--template-font-script)' }}
+              >
+                {couple.groom.nickname}
+              </h1>
+              <p className="text-3xl my-3">&</p>
+              <h1
+                className="text-5xl md:text-7xl mb-8"
+                style={{ fontFamily: 'var(--template-font-script)' }}
+              >
+                {couple.bride.nickname}
+              </h1>
+
+              {/* Guest name */}
+              {guest && (
+                <div className="mb-8 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm inline-block">
+                  <p className="text-sm opacity-70">Dear</p>
+                  <p className="text-xl font-medium">{guest.name}</p>
+                </div>
+              )}
+
+              {/* Countdown */}
+              {features.showCountdown && (
+                <div className="mb-8">
+                  <CountdownTimer targetDate={weddingDate} />
+                </div>
+              )}
+
+              {couple.quote && (
+                <p className="text-sm md:text-base opacity-80 italic max-w-md mx-auto">
+                  "{couple.quote}"
+                </p>
+              )}
+            </motion.div>
+
+            <ScrollIndicator />
+          </FullScreenSection>
+        )}
+
+        {/* ==================== COUPLE SECTION ==================== */}
+        {features.showCouple && (
+          <FullScreenSection id="couple" className="py-20 px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-12"
+                style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                We're Getting Married
+              </motion.h2>
+
+              <div className="grid md:grid-cols-2 gap-12 md:gap-8">
+                {/* Groom */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center"
+                >
+                  <div
+                    className="w-48 h-48 rounded-full overflow-hidden mb-6 ring-4"
+                    style={{ ringColor: 'var(--template-primary)' }}
+                  >
+                    <img
+                      src={couple.groom.photo}
+                      alt={couple.groom.fullName}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3
+                    className="text-2xl md:text-3xl mb-2"
+                    style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                  >
+                    {couple.groom.fullName}
+                  </h3>
+                  <p className="text-sm opacity-70 mb-2">{couple.groom.birthOrder}</p>
+                  <p className="text-sm">{couple.groom.fatherName}</p>
+                  <p className="text-sm">{couple.groom.motherName}</p>
+                </motion.div>
+
+                {/* Bride */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center"
+                >
+                  <div
+                    className="w-48 h-48 rounded-full overflow-hidden mb-6 ring-4"
+                    style={{ ringColor: 'var(--template-primary)' }}
+                  >
+                    <img
+                      src={couple.bride.photo}
+                      alt={couple.bride.fullName}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3
+                    className="text-2xl md:text-3xl mb-2"
+                    style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                  >
+                    {couple.bride.fullName}
+                  </h3>
+                  <p className="text-sm opacity-70 mb-2">{couple.bride.birthOrder}</p>
+                  <p className="text-sm">{couple.bride.fatherName}</p>
+                  <p className="text-sm">{couple.bride.motherName}</p>
+                </motion.div>
+              </div>
+            </div>
+          </FullScreenSection>
+        )}
+
+        {/* ==================== EVENTS SECTION ==================== */}
+        {features.showEvents && (
+          <FullScreenSection
+            id="events"
+            className="py-20 px-6"
+            style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
+          >
+            <div className="max-w-4xl mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-12"
+                style={{ fontFamily: 'var(--template-font-script)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Save The Date
+              </motion.h2>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {events.map((event, index) => (
+                  <motion.div
+                    key={event.id}
+                    className="bg-white/10 backdrop-blur-sm rounded-2xl p-8"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.2 }}
+                  >
+                    <h3 className="text-2xl font-semibold mb-4">{event.title}</h3>
+
+                    <div className="space-y-3 text-left">
+                      <div className="flex items-center gap-3">
+                        <Calendar className="w-5 h-5 opacity-70" />
+                        <span>
+                          {new Date(event.date).toLocaleDateString('id-ID', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          })}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Clock className="w-5 h-5 opacity-70" />
+                        <span>{event.startTime} - {event.endTime || 'Selesai'}</span>
+                      </div>
+
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 opacity-70 mt-0.5" />
+                        <div>
+                          <p className="font-medium">{event.venue.name}</p>
+                          <p className="text-sm opacity-70">{event.venue.address}</p>
+                          <p className="text-sm opacity-70">{event.venue.city}</p>
+                        </div>
+                      </div>
+
+                      {event.dresscode && (
+                        <p className="text-sm opacity-70 pt-2 border-t border-white/20">
+                          Dress Code: {event.dresscode}
+                        </p>
+                      )}
+                    </div>
+
+                    <a
+                      href={`https://maps.google.com/?q=${event.venue.mapCoordinates?.lat},${event.venue.mapCoordinates?.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-6 px-6 py-2 bg-white text-sm font-medium rounded-full"
+                      style={{ color: 'var(--template-primary)' }}
+                    >
+                      <MapPin className="w-4 h-4" />
+                      Lihat Lokasi
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </FullScreenSection>
+        )}
+
+        {/* ==================== LOVE STORY SECTION ==================== */}
+        {features.showLoveStory && loveStory.enabled && (
+          <FullScreenSection id="story" className="py-20 px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-12"
+                style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {loveStory.title || 'Our Love Story'}
+              </motion.h2>
+
+              <div className="relative">
+                {/* Timeline line */}
+                <div
+                  className="absolute left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2"
+                  style={{ backgroundColor: 'var(--template-primary)', opacity: 0.3 }}
                 />
-              ))}
+
+                {loveStory.milestones.map((milestone, index) => (
+                  <motion.div
+                    key={milestone.id}
+                    className={`relative flex items-center gap-8 mb-12 ${
+                      index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                    }`}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* Content */}
+                    <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                      <p className="text-sm opacity-50 mb-1">
+                        {new Date(milestone.date).toLocaleDateString('id-ID', {
+                          month: 'long',
+                          year: 'numeric',
+                        })}
+                      </p>
+                      <h4
+                        className="text-xl font-semibold mb-2"
+                        style={{ color: 'var(--template-primary)' }}
+                      >
+                        {milestone.title}
+                      </h4>
+                      <p className="text-sm opacity-70">{milestone.description}</p>
+                    </div>
+
+                    {/* Dot */}
+                    <div
+                      className="w-4 h-4 rounded-full z-10 ring-4 ring-white"
+                      style={{ backgroundColor: 'var(--template-primary)' }}
+                    />
+
+                    {/* Empty space or image */}
+                    <div className="flex-1">
+                      {milestone.image && (
+                        <img
+                          src={milestone.image}
+                          alt={milestone.title}
+                          className="w-full max-w-[200px] rounded-lg shadow-lg mx-auto"
+                        />
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </FullScreenSection>
+        )}
+
+        {/* ==================== GALLERY SECTION ==================== */}
+        {features.showGallery && gallery.enabled && (
+          <FullScreenSection
+            id="gallery"
+            className="py-20 px-6"
+            style={{ backgroundColor: 'var(--template-secondary)', opacity: 0.9 }}
+          >
+            <div className="max-w-5xl mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-12"
+                style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {gallery.title || 'Our Gallery'}
+              </motion.h2>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {gallery.photos.slice(0, 6).map((photo, index) => (
+                  <motion.div
+                    key={index}
+                    className="aspect-square rounded-lg overflow-hidden cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => openLightbox(index)}
+                  >
+                    <img
+                      src={photo.url}
+                      alt={photo.caption || `Photo ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
-            {/* Up/Down buttons */}
-            <button
-              onClick={autoSlide.goToPrev}
-              className="p-2 rounded-full shadow-lg transition-all hover:scale-110"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                color: 'var(--template-primary)',
-              }}
-              aria-label="Previous section"
-            >
-              <ChevronUp className="w-4 h-4" />
-            </button>
-            <button
-              onClick={autoSlide.goToNext}
-              className="p-2 rounded-full shadow-lg transition-all hover:scale-110"
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.9)',
-                color: 'var(--template-primary)',
-              }}
-              aria-label="Next section"
-            >
-              <ChevronDown className="w-4 h-4" />
-            </button>
-          </motion.div>
+            <GalleryLightbox
+              photos={gallery.photos}
+              isOpen={lightboxOpen}
+              currentIndex={lightboxIndex}
+              onClose={() => setLightboxOpen(false)}
+              onNavigate={setLightboxIndex}
+            />
+          </FullScreenSection>
         )}
 
-        {/* Sections with wavy decorations */}
-        {features.showCover && (
-          <div id="cover" className="relative">
-            <CoverSection />
-            <WavyDecoration position="bottom" color="var(--template-background)" />
-          </div>
+        {/* ==================== RSVP SECTION ==================== */}
+        {features.showRsvp && rsvp.enabled && (
+          <FullScreenSection id="rsvp" className="py-20 px-6">
+            <div className="max-w-md mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-4"
+                style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {rsvp.title || 'RSVP'}
+              </motion.h2>
+              <p className="opacity-70 mb-8">{rsvp.subtitle}</p>
+
+              {rsvpSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-8 rounded-2xl"
+                  style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
+                >
+                  <Check className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">Terima Kasih!</h3>
+                  <p className="opacity-80">Konfirmasi kehadiran Anda telah kami terima.</p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  onSubmit={handleRsvpSubmit(onRsvpSubmit)}
+                  className="space-y-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <input
+                    {...registerRsvp('name', { required: true })}
+                    placeholder="Nama Lengkap"
+                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
+                    style={{ borderColor: 'var(--template-primary)', focusRing: 'var(--template-primary)' }}
+                  />
+
+                  <select
+                    {...registerRsvp('attendance', { required: true })}
+                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
+                    style={{ borderColor: 'var(--template-primary)' }}
+                  >
+                    <option value="">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Ya, Saya akan hadir</option>
+                    <option value="tidak">Maaf, Saya tidak bisa hadir</option>
+                  </select>
+
+                  {rsvp.showGuestCount && (
+                    <select
+                      {...registerRsvp('guests')}
+                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
+                      style={{ borderColor: 'var(--template-primary)' }}
+                    >
+                      <option value="1">1 Orang</option>
+                      {Array.from({ length: rsvp.maxGuests - 1 }, (_, i) => (
+                        <option key={i + 2} value={i + 2}>{i + 2} Orang</option>
+                      ))}
+                    </select>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={isRsvpSubmitting}
+                    className="w-full py-3 rounded-lg font-medium transition-all hover:opacity-90 disabled:opacity-50"
+                    style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
+                  >
+                    {isRsvpSubmitting ? 'Mengirim...' : 'Kirim Konfirmasi'}
+                  </button>
+                </motion.form>
+              )}
+            </div>
+          </FullScreenSection>
         )}
 
-        {features.showCouple && (
-          <div id="couple" className="relative">
-            <WavyDecoration position="top" color="var(--template-primary)" flip />
-            <CoupleSection />
-            <WavyDecoration position="bottom" color="var(--template-background)" />
-          </div>
-        )}
-
-        {features.showEvents && (
-          <div id="events" className="relative">
-            <EventSection />
-            <WavyDecoration position="bottom" color="var(--template-primary)" />
-          </div>
-        )}
-
-        {features.showLoveStory && (
-          <div
-            id="love-story"
-            className="relative py-8"
-            style={{ backgroundColor: 'var(--template-primary)' }}
+        {/* ==================== GIFT SECTION ==================== */}
+        {features.showGiftRegistry && giftRegistry.enabled && (
+          <FullScreenSection
+            id="gift"
+            className="py-20 px-6"
+            style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
           >
-            <LoveStorySection />
-            <WavyDecoration position="bottom" color="var(--template-background)" />
-          </div>
+            <div className="max-w-lg mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-4"
+                style={{ fontFamily: 'var(--template-font-script)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {giftRegistry.title || 'Wedding Gift'}
+              </motion.h2>
+              <p className="opacity-80 mb-8">{giftRegistry.message}</p>
+
+              <div className="space-y-4">
+                {giftRegistry.bankAccounts.map((account, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <p className="font-medium mb-2">{account.bankName}</p>
+                    <p className="text-2xl font-mono mb-1">{account.accountNumber}</p>
+                    <p className="text-sm opacity-70 mb-4">a.n. {account.accountHolder}</p>
+
+                    <button
+                      onClick={() => copyToClipboard(account.accountNumber, account.accountNumber)}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-medium transition-all hover:scale-105"
+                      style={{ color: 'var(--template-primary)' }}
+                    >
+                      {copiedAccount === account.accountNumber ? (
+                        <>
+                          <Check className="w-4 h-4" />
+                          Tersalin!
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          Salin Nomor
+                        </>
+                      )}
+                    </button>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </FullScreenSection>
         )}
 
-        {features.showGallery && (
-          <div id="gallery" className="relative">
-            <GallerySection />
-          </div>
+        {/* ==================== GUESTBOOK SECTION ==================== */}
+        {features.showGuestBook && guestBook.enabled && (
+          <FullScreenSection id="wishes" className="py-20 px-6">
+            <div className="max-w-lg mx-auto text-center">
+              <motion.h2
+                className="text-3xl md:text-4xl mb-4"
+                style={{ fontFamily: 'var(--template-font-script)', color: 'var(--template-primary)' }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                {guestBook.title || 'Wishes'}
+              </motion.h2>
+              <p className="opacity-70 mb-8">{guestBook.subtitle}</p>
+
+              <motion.form
+                onSubmit={handleGuestbookSubmit(onGuestbookSubmit)}
+                className="space-y-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <input
+                  {...registerGuestbook('name', { required: true })}
+                  placeholder="Nama Anda"
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
+                  style={{ borderColor: 'var(--template-primary)' }}
+                />
+
+                <textarea
+                  {...registerGuestbook('message', { required: true })}
+                  placeholder="Tulis ucapan dan doa Anda..."
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 resize-none"
+                  style={{ borderColor: 'var(--template-primary)' }}
+                />
+
+                <button
+                  type="submit"
+                  disabled={isGuestbookSubmitting}
+                  className="w-full py-3 rounded-lg font-medium transition-all hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+                  style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
+                >
+                  <Send className="w-4 h-4" />
+                  {isGuestbookSubmitting ? 'Mengirim...' : 'Kirim Ucapan'}
+                </button>
+
+                {guestbookSubmitted && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-green-600 font-medium"
+                  >
+                    Terima kasih atas ucapan Anda!
+                  </motion.p>
+                )}
+              </motion.form>
+            </div>
+          </FullScreenSection>
         )}
 
-        {features.showRsvp && (
-          <div id="rsvp" className="relative">
-            <WavyDecoration position="top" color="var(--template-secondary)" />
-            <RSVPSection />
-          </div>
-        )}
-
-        {features.showGiftRegistry && (
-          <div id="gift" className="relative">
-            <GiftSection />
-          </div>
-        )}
-
-        {features.showGuestBook && (
-          <div id="guest-book" className="relative">
-            <WavyDecoration position="top" color="var(--template-primary)" flip />
-            <GuestBookSection />
-          </div>
-        )}
-
-        {/* Footer */}
+        {/* ==================== FOOTER ==================== */}
         <footer
-          className="relative py-12 text-center"
-          style={{ backgroundColor: 'var(--template-primary)' }}
+          className="py-16 text-center"
+          style={{ backgroundColor: 'var(--template-primary)', color: 'white' }}
         >
-          <WavyDecoration position="top" color="var(--template-background)" />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="pt-8"
           >
             <h3
-              className="text-3xl md:text-4xl text-white mb-4"
-              style={{ fontFamily: 'var(--template-font-script, var(--template-font-heading))' }}
+              className="text-4xl md:text-5xl mb-4"
+              style={{ fontFamily: 'var(--template-font-script)' }}
             >
               {couple.groom.nickname} & {couple.bride.nickname}
             </h3>
 
             {couple.hashtag && (
-              <p className="text-white/80 mb-6">{couple.hashtag}</p>
+              <p className="opacity-80 mb-6 text-lg">{couple.hashtag}</p>
             )}
 
-            <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
+            <p className="opacity-60 text-sm mb-4">
+              We can't wait to celebrate with you!
+            </p>
+
+            <div className="flex items-center justify-center gap-2 opacity-50 text-sm">
               <span>Made with</span>
               <Heart className="w-4 h-4 fill-current text-red-400" />
               <span>by</span>
-              <a
-                href="/"
-                className="text-white hover:text-white/80 transition-colors font-medium"
-              >
+              <a href="/" className="hover:opacity-80 transition-opacity font-medium">
                 akunikah.in
               </a>
             </div>
