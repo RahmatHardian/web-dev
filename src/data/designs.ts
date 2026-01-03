@@ -7,6 +7,7 @@ export const designs: Design[] = [
     title: 'Golden Elegance',
     category: 'elegant',
     thumbnail: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=600&fit=crop',
+    previewUrl: '/preview/elegant-1',
     tags: ['luxury', 'gold', 'classic'],
     colors: ['#d4af37', '#ffffff', '#f5f5f5'],
   },

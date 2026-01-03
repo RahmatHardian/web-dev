@@ -1,0 +1,8 @@
+export { CoverSection } from './CoverSection'
+export { CoupleSection } from './CoupleSection'
+export { EventSection } from './EventSection'
+export { LoveStorySection } from './LoveStorySection'
+export { GallerySection } from './GallerySection'
+export { RSVPSection } from './RSVPSection'
+export { GiftSection } from './GiftSection'
+export { GuestBookSection } from './GuestBookSection'

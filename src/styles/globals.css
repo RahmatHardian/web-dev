@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* MarkAgency Color Variables */
-    --color-primary: 187, 139, 50;
+    --color-primary: 235, 193, 56;
     --color-secondary: 50, 129, 187;
     --color-accent: 7, 18, 26;
     --color-dark-blue: 31, 79, 114;
@@ -70,7 +70,7 @@
   }
 
   .gradient-button {
-    background-image: linear-gradient(160deg, #1F4F72 50%, #BB8B32 100%);
+    background-image: linear-gradient(160deg, #1F4F72 50%, #EBC138 100%);
   }
 
   /* Gradient Text Effect */
@@ -82,7 +82,7 @@
   }
 
   .gradient-text-gold {
-    background: linear-gradient(135deg, #E6CDA0 0%, #BB8B32 100%);
+    background: linear-gradient(135deg, #F4DB74 0%, #EBC138 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -123,14 +123,14 @@
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(8px) saturate(120%);
     -webkit-backdrop-filter: blur(8px) saturate(120%);
-    border: 1px solid rgba(187, 139, 50, 0.5);
-    color: #BB8B32;
+    border: 1px solid rgba(235, 193, 56, 0.5);
+    color: #EBC138;
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   }
 
   .btn-ghost:hover {
-    background: rgba(187, 139, 50, 0.15);
-    border-color: #BB8B32;
+    background: rgba(235, 193, 56, 0.15);
+    border-color: #EBC138;
   }
 
   /* Liquid Glass Card */
@@ -293,7 +293,7 @@ button {
 .glass-blob {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(50, 129, 187, 0.3) 0%, rgba(187, 139, 50, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(50, 129, 187, 0.3) 0%, rgba(235, 193, 56, 0.2) 100%);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   z-index: 0;
@@ -357,4 +357,69 @@ button {
   .hero-bg-image {
     background-attachment: scroll;
   }
+}
+
+/* ============================================
+   Template Invitation Styles
+   ============================================ */
+
+/* Template base styles */
+.template-base {
+  --template-primary-rgb: 212, 175, 55;
+  min-height: 100vh;
+}
+
+/* Template section animations */
+.template-section-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.template-section-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease-out;
+}
+
+/* Template ornament patterns */
+.template-ornament-floral {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.template-ornament-geometric {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Template theme-specific styles */
+.template-elegant {
+  --template-primary-rgb: 212, 175, 55;
+}
+
+.template-minimal {
+  --template-primary-rgb: 51, 51, 51;
+}
+
+.template-islami {
+  --template-primary-rgb: 45, 95, 46;
+}
+
+.template-adat {
+  --template-primary-rgb: 139, 69, 19;
+}
+
+.template-modern {
+  --template-primary-rgb: 44, 62, 80;
+}
+
+/* Template smooth scroll */
+.template-base {
+  scroll-behavior: smooth;
+}
+
+/* Template card glass effect */
+.template-card-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }

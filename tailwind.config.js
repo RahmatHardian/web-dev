@@ -9,17 +9,17 @@ export default {
       colors: {
         // MarkAgency Color Palette
         primary: {
-          DEFAULT: '#BB8B32',  // Gold
-          50: '#FBF7F0',
-          100: '#F5ECD9',
-          200: '#E8D5B0',
-          300: '#D9BD86',
-          400: '#CBA65C',
-          500: '#BB8B32',
-          600: '#9A7229',
-          700: '#795A21',
-          800: '#584118',
-          900: '#372910',
+          DEFAULT: '#EBC138',  // Golden Yellow / Mustard
+          50: '#FEFBF0',
+          100: '#FDF6DC',
+          200: '#F9E9A8',
+          300: '#F4DB74',
+          400: '#F0CE56',
+          500: '#EBC138',
+          600: '#D4A82A',
+          700: '#A98421',
+          800: '#7E6118',
+          900: '#533F10',
         },
         secondary: {
           DEFAULT: '#3281BB',  // Blue
