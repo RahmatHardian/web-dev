@@ -140,7 +140,7 @@ const FloatingDots = ({
 
 export const TealWaveLayout = () => {
   const { config, guest } = useTemplateContext()
-  const { couple, events, gallery, rsvp, giftRegistry, loveStory, guestBook, features, theme } = config
+  const { couple, events, gallery, rsvp, giftRegistry, loveStory, guestBook, features } = config
   const [isCoverOpen, setIsCoverOpen] = useState(!features.showCoverOverlay)
   const [activeSection, setActiveSection] = useState(0)
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null)
@@ -224,8 +224,8 @@ export const TealWaveLayout = () => {
     setTimeout(() => setGuestbookSubmitted(false), 3000)
   }
 
-  // Get wedding date for countdown
-  const weddingDate = events[0]?.date ? new Date(events[0].date) : new Date()
+  // Get wedding date for countdown (as string for CountdownTimer)
+  const weddingDate = events[0]?.date || new Date().toISOString().split('T')[0]
 
   return (
     <>
@@ -344,8 +344,8 @@ export const TealWaveLayout = () => {
                   className="flex flex-col items-center"
                 >
                   <div
-                    className="w-48 h-48 rounded-full overflow-hidden mb-6 ring-4"
-                    style={{ ringColor: 'var(--template-primary)' }}
+                    className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4"
+                    style={{ borderColor: 'var(--template-primary)' }}
                   >
                     <img
                       src={couple.groom.photo}
@@ -372,8 +372,8 @@ export const TealWaveLayout = () => {
                   className="flex flex-col items-center"
                 >
                   <div
-                    className="w-48 h-48 rounded-full overflow-hidden mb-6 ring-4"
-                    style={{ ringColor: 'var(--template-primary)' }}
+                    className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4"
+                    style={{ borderColor: 'var(--template-primary)' }}
                   >
                     <img
                       src={couple.bride.photo}
@@ -609,7 +609,7 @@ export const TealWaveLayout = () => {
                     {...registerRsvp('name', { required: true })}
                     placeholder="Nama Lengkap"
                     className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                    style={{ borderColor: 'var(--template-primary)', focusRing: 'var(--template-primary)' }}
+                    style={{ borderColor: 'var(--template-primary)' }}
                   />
 
                   <select
