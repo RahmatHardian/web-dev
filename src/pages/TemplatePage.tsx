@@ -49,7 +49,7 @@ export const TemplatePage = ({ mode }: TemplatePageProps) => {
   }
 
   const pageTitle = mode === 'preview'
-    ? `Preview: ${config.meta.templateName} | nikah.in`
+    ? `Preview: ${config.meta.templateName} | akunikah.in`
     : `${config.couple.groom.nickname} & ${config.couple.bride.nickname} | Undangan Pernikahan`
 
   const pageDescription = mode === 'preview'

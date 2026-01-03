@@ -13,7 +13,7 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <h3 className="font-heading text-2xl font-bold text-primary">
-              nikah.in
+              akunikah.in
             </h3>
             <p className="mt-2 text-sm text-white-soft">{footerContent.tagline}</p>
             <div className="mt-4 flex gap-4">

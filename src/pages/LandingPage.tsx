@@ -38,7 +38,7 @@ export const LandingPage = () => {
         {/* Additional */}
         <link rel="canonical" href={SEO_CONFIG.url} />
         <meta name="robots" content="index, follow" />
-        <meta name="author" content="nikah.in" />
+        <meta name="author" content="akunikah.in" />
       </Helmet>
 
       <div className="min-h-screen bg-white">

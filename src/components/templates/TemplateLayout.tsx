@@ -67,7 +67,7 @@ export const TemplateLayout = () => {
               href="/"
               className="text-white hover:text-white/80 transition-colors font-medium"
             >
-              nikah.in
+              akunikah.in
             </a>
           </div>
         </motion.div>

@@ -11,14 +11,14 @@ export const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID || ''
 // Social Media Links
 export const SOCIAL_LINKS = {
   whatsapp: `https://wa.me/${WHATSAPP_PHONE}`,
-  instagram: 'https://instagram.com/nikah.in',
-  facebook: 'https://facebook.com/nikah.in',
-  twitter: 'https://twitter.com/nikahin',
+  instagram: 'https://instagram.com/akunikah.in',
+  facebook: 'https://facebook.com/akunikah.in',
+  twitter: 'https://twitter.com/akunikahin',
 }
 
 // SEO Meta
 export const SEO_CONFIG = {
-  title: 'nikah.in - Undangan Digital Pernikahan Modern',
+  title: 'akunikah.in - Undangan Digital Pernikahan Modern',
   description:
     'Buat undangan pernikahan digital yang simpel, elegan, dan siap dibagikan via WhatsApp. Jadi dalam 1 hari dengan harga terjangkau.',
   keywords: [
@@ -26,12 +26,12 @@ export const SEO_CONFIG = {
     'undangan pernikahan',
     'undangan online',
     'undangan WhatsApp',
-    'nikah.in',
+    'akunikah.in',
     'undangan modern',
     'undangan islami',
     'undangan adat',
   ],
-  url: 'https://nikah.in',
+  url: 'https://akunikah.in',
   image: '/og-image.png',
   locale: 'id_ID',
 }

@@ -23,18 +23,18 @@ export const getWhatsAppPhone = (): string => {
  * WhatsApp message templates
  */
 export const WHATSAPP_MESSAGES = {
-  consultation: 'Halo nikah.in! Saya ingin konsultasi untuk undangan digital pernikahan.',
+  consultation: 'Halo akunikah.in! Saya ingin konsultasi untuk undangan digital pernikahan.',
 
   order: (packageName: string) =>
-    `Halo nikah.in! Saya tertarik untuk memesan ${packageName}. Mohon informasi lebih lanjut.`,
+    `Halo akunikah.in! Saya tertarik untuk memesan ${packageName}. Mohon informasi lebih lanjut.`,
 
   custom: (name: string, weddingDate: string, packageName?: string) =>
-    `Halo nikah.in! Nama saya ${name}, saya ingin membuat undangan digital untuk pernikahan pada tanggal ${weddingDate}.${packageName ? ` Saya tertarik dengan ${packageName}.` : ''}`,
+    `Halo akunikah.in! Nama saya ${name}, saya ingin membuat undangan digital untuk pernikahan pada tanggal ${weddingDate}.${packageName ? ` Saya tertarik dengan ${packageName}.` : ''}`,
 
   inquiry: (designId: string) =>
-    `Halo nikah.in! Saya tertarik dengan desain ${designId}. Bisa tolong jelaskan lebih detail?`,
+    `Halo akunikah.in! Saya tertarik dengan desain ${designId}. Bisa tolong jelaskan lebih detail?`,
 
-  viewAll: 'Halo nikah.in! Saya ingin melihat semua koleksi desain undangan yang tersedia.',
+  viewAll: 'Halo akunikah.in! Saya ingin melihat semua koleksi desain undangan yang tersedia.',
 }
 
 /**

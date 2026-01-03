@@ -74,7 +74,7 @@ export const Header = () => {
             onClick={() => scrollToSection('hero')}
             className="font-heading text-2xl font-bold text-primary transition-colors hover:text-gold-light"
           >
-            nikah.in
+            akunikah.in
           </button>
 
           {/* Desktop Navigation */}

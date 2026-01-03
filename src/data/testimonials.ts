@@ -16,7 +16,7 @@ export const testimonials: Testimonial[] = [
     name: 'Siti & Budi',
     city: 'Bandung',
     quote:
-      'Alhamdulillah sangat puas dengan hasilnya. Desain islaminya elegan dan mudah dibagikan ke keluarga. Terima kasih nikah.in!',
+      'Alhamdulillah sangat puas dengan hasilnya. Desain islaminya elegan dan mudah dibagikan ke keluarga. Terima kasih akunikah.in!',
     photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces',
     rating: 5,
     weddingDate: '2024-04-20',

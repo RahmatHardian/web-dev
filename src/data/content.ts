@@ -19,7 +19,7 @@ export const featuresContent = {
 }
 
 export const howItWorksContent = {
-  title: 'Cara Buat Undangan di nikah.in',
+  title: 'Cara Buat Undangan di akunikah.in',
   subtitle: 'Tanpa ribet. Kami bantu dari awal sampai undangan siap kirim.',
   steps: [
     {
@@ -51,21 +51,21 @@ export const pricingContent = {
 
 export const testimonialsContent = {
   title: 'Cerita Bahagia Mereka',
-  subtitle: 'Ribuan pasangan telah mempercayai nikah.in untuk undangan pernikahan mereka',
+  subtitle: 'Ribuan pasangan telah mempercayai akunikah.in untuk undangan pernikahan mereka',
 }
 
 export const finalCTAContent = {
   headline: 'Siap Mengundang dengan Cara Modern?',
-  subheadline: 'Mulai undangan digital pertamamu hari ini bersama nikah.in.',
+  subheadline: 'Mulai undangan digital pertamamu hari ini bersama akunikah.in.',
   cta: 'Buat Undangan Sekarang',
 }
 
 export const footerContent = {
-  copyright: '© 2024 nikah.in. All rights reserved.',
+  copyright: '© 2024 akunikah.in. All rights reserved.',
   tagline: 'Undangan Digital Pernikahan Modern',
   social: {
     whatsapp: 'https://wa.me/6281234567890',
-    instagram: 'https://instagram.com/nikah.in',
+    instagram: 'https://instagram.com/akunikah.in',
   },
   links: [
     { label: 'Tentang Kami', href: '#about' },

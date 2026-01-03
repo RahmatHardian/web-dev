@@ -1,5 +1,27 @@
 import type { TemplateConfig } from '../../../types/template'
 
+/**
+ * Template Configuration for Golden Elegance
+ *
+ * ADMIN GUIDE - How to customize for each customer:
+ *
+ * 1. COUPLE INFO: Update groom/bride names, photos, parents, social media
+ * 2. EVENTS: Update dates, times, venues, dresscode
+ * 3. GALLERY: Replace photo URLs with customer's photos (Google Drive/OneDrive)
+ * 4. BANK ACCOUNTS: Update with customer's bank details
+ * 5. LOVE STORY: Update milestones with customer's story
+ * 6. MUSIC: Upload MP3 to Google Drive/OneDrive, convert link (see below)
+ *
+ * MUSIC URL CONVERSION:
+ * - Google Drive: https://drive.google.com/file/d/FILE_ID/view
+ *   Convert to: https://drive.google.com/uc?export=download&id=FILE_ID
+ *
+ * - OneDrive: Get embed link and use download format
+ *
+ * PHOTO URL CONVERSION (same as music):
+ * - Google Drive: https://drive.google.com/uc?export=view&id=FILE_ID
+ */
+
 export const demoElegantConfig: TemplateConfig = {
   meta: {
     templateId: 'elegant-1',
@@ -203,9 +225,10 @@ export const demoElegantConfig: TemplateConfig = {
   music: {
     enabled: true,
     autoplay: true,
-    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-    title: 'Beautiful in White',
-    artist: 'Shane Filan',
+    // url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    url: 'https://drive.google.com/uc?export=download&id=1aJaV29KtE3xsbcMMC3A3pYR9NSe6_euj',
+    title: 'I Like You So Much, You’ll Know It (我多喜欢你，你会知道)- A Love So Beautiful OST - Wang Junqi [English Cover]',
+    artist: 'Wang Junqi',
   },
 
   features: {
