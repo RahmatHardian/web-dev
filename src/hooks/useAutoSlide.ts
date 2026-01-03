@@ -26,8 +26,8 @@ export const useAutoSlide = ({
 }: UseAutoSlideOptions): UseAutoSlideReturn => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(enabled)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<number | null>(null)
+  const interactionTimeoutRef = useRef<number | null>(null)
 
   // Clear interval helper
   const clearAutoSlide = useCallback(() => {

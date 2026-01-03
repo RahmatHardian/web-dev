@@ -42,17 +42,17 @@ const WavyDecoration = ({
   </div>
 )
 
-// Section IDs for auto-slide
-const SECTION_IDS = [
-  'cover',
-  'couple',
-  'events',
-  'love-story',
-  'gallery',
-  'rsvp',
-  'gift',
-  'guest-book',
-]
+// Section IDs for auto-slide (reserved for future use)
+// const SECTION_IDS = [
+//   'cover',
+//   'couple',
+//   'events',
+//   'love-story',
+//   'gallery',
+//   'rsvp',
+//   'gift',
+//   'guest-book',
+// ]
 
 export const TealWaveLayout = () => {
   const { config } = useTemplateContext()
