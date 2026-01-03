@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Volume2, VolumeX, Music } from 'lucide-react'
+import { VolumeX, Music } from 'lucide-react'
 import { useAudio } from '../../../hooks/useAudio'
 import { useTemplateContext } from '../TemplateProvider'
 

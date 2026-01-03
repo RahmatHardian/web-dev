@@ -12,7 +12,6 @@ interface GalleryLightboxProps {
 
 export const GalleryLightbox = ({
   photos,
-  layout = 'grid',
   columns = 3,
 }: GalleryLightboxProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)

@@ -11,7 +11,7 @@ interface PersonCardProps {
   delay?: number
 }
 
-const PersonCard = ({ person, role, delay = 0 }: PersonCardProps) => {
+const PersonCard = ({ person, delay = 0 }: PersonCardProps) => {
   return (
     <motion.div
       className="text-center"
